@@ -9,4 +9,4 @@ git clone https://github.com/adityahase/bench --depth=1 -b develop bench-repo
 # Create new virtualenv
 virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
 # Run bench init with frappe repo (develop branch) and log output
-bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=develop | tee /dev/tty | nc termbin.com 9999 | sed -e "s/^/$(date -R) /" >> log.link
+bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=develop 2>&1 | tee /dev/tty | nc termbin.com 9999 | sed -e "s/^/$(date -R) /" >> log.link
