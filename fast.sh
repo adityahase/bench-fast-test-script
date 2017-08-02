@@ -2,6 +2,8 @@
 # Usage : ssh root@139.59.80.103 "su frappe -c 'bash /home/frappe/fast.sh aditya 2 frappe-branch bench-branch'"
 # Goto user dierctory
 cd /home/frappe/$1/
+# Remove Everything
+rm -rf *
 #Create and CD to a random directory
 dir=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 8)
 mkdir $dir && cd $dir
