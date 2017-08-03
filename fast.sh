@@ -16,7 +16,7 @@ virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
 npm config set cache .cache
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee log.log
 # Read command log and write to a p.f.org compatible json file
-cat log.log | python -c 'import json,sys; print(json.dumps(dict([("contents",sys.stdin.read())])))' > log.json
+cat log.log | python -c 'import json,sys; print(json.dumps(dict([("expiry_time":"1609372800", "contents",sys.stdin.read())])))' > log.json
 # Copy log to p.f.org and note url
 curl -X POST -d @log.json -H "Content-Type: application/json" https://paste.fedoraproject.org/api/paste/submit | jq -r ".url" > log.url
 # Log URL in link file
