@@ -19,7 +19,7 @@ echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir
 # Create sites dir
 mkdir sites
 # Set shallow_clone=true for --depth=1 clone
-echo '{"shallow_clone":true}' > /sites/common_site_config.json
+echo '{"shallow_clone":true}' > sites/common_site_config.json
 # run bench init and log everything
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
 # Read command log and write to a p.f.org compatible json file
