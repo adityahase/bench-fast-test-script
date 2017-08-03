@@ -15,6 +15,8 @@ virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
 # Set .cache as npm cache dir
 npm config set cache .cache
 echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir" >> log.log
+mkdir sites
+echo '{"shallow_clone":true}' > /sites/common_site_config.json
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
 # Read command log and write to a p.f.org compatible json file
 cat log.log | python -c 'import json,sys; print(json.dumps({"expiry_time":"1609372800", "contents":sys.stdin.read()}))' > log.json
