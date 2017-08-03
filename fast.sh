@@ -14,9 +14,13 @@ virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
 # Run bench init with frappe repo (develop branch) and log output
 # Set .cache as npm cache dir
 npm config set cache .cache
+# log args as well
 echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir" >> log.log
+# Create sites dir
 mkdir sites
+# Set shallow_clone=true for --depth=1 clone
 echo '{"shallow_clone":true}' > /sites/common_site_config.json
+# run bench init and log everything
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
 # Read command log and write to a p.f.org compatible json file
 cat log.log | python -c 'import json,sys; print(json.dumps({"expiry_time":"1609372800", "contents":sys.stdin.read()}))' > log.json
