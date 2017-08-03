@@ -8,13 +8,13 @@ rm -rf *
 dir=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 8)
 mkdir $dir && cd $dir
 # Clone develop branch of bench repo 
-git clone https://github.com/adityahase/bench --depth=1 -b $4 bench-repo
+git clone https://github.com/adityahase/bench --depth=1 -b $4 bench-repo >> log.log
 # Create new virtualenv
-virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
+virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo >> log.log
 # Run bench init with frappe repo (develop branch) and log output
 # Set .cache as npm cache dir
 npm config set cache .cache
-echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir" > log.log
+echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir" >> log.log
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
 # Read command log and write to a p.f.org compatible json file
 cat log.log | python -c 'import json,sys; print(json.dumps({"expiry_time":"1609372800", "contents":sys.stdin.read()}))' > log.json
