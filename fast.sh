@@ -22,6 +22,10 @@ mkdir sites
 echo '{"shallow_clone":true}' > sites/common_site_config.json
 # run bench init and log everything
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
+# cd to bench dir b
+cd b
+# run bench new-site and log everything
+bench new-site nb 2>&1 | tee -a log.log
 # Copy log file to log directory
 mv log.log /home/frappe/log/$dir.log
 # Append log file path in link file
