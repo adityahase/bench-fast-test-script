@@ -22,11 +22,9 @@ mkdir sites
 echo '{"shallow_clone":true}' > sites/common_site_config.json
 # run bench init and log everything
 bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --frappe-branch=$3 2>&1 | tee -a log.log
-# Read command log and write to a p.f.org compatible json file
-cat log.log | python -c 'import json,sys; print(json.dumps({"expiry_time":"1609372800", "contents":sys.stdin.read()}))' > log.json
-# Copy log to p.f.org and note url
-curl -X POST -d @log.json -H "Content-Type: application/json" https://paste.fedoraproject.org/api/paste/submit | jq -r ".url" > log.url
-# Log URL in link file
-cat log.url | sed -e "s/^/$1 $(date -R) /" >> /home/frappe/log.link
+# Copy log file to log directory
+mv log.log /home/frappe/log/$dir.log
+# Append log file path in link file
+echo $dir | sed -e "s/^/$1 $(date -R) /" >> /home/frappe/log.link
 # Print last url entry
 tail -1 /home/frappe/log.link
