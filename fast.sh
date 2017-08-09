@@ -14,6 +14,8 @@ virtualenv -p python$2 $2 && source $2/bin/activate && pip install -e bench-repo
 # Run bench init with frappe repo (develop branch) and log output
 # Set .cache as npm cache dir
 npm config set cache .cache
+# Use Python2 only with Node
+npm config set python python2
 # log args as well
 echo "user : $1 pythonversion : $2 frappe-branch $3 bench-branch : $4 dir : $dir" >> log.log
 # Create sites dir
