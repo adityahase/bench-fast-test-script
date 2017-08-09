@@ -25,7 +25,7 @@ bench init b --verbose --frappe-path="https://github.com/adityahase/frappe" --fr
 # cd to bench dir b
 cd b
 # run bench new-site and log everything
-bench new-site --mariadb-root-password "root" nb 2>&1 | tee -a log.log
+bench new-site --mariadb-root-password "root" $dir 2>&1 | tee -a log.log
 # Copy log file to log directory
 mv log.log /home/frappe/log/$dir.log
 # Append log file path in link file
